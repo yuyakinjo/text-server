@@ -1,5 +1,5 @@
 import { fakerJA } from '@faker-js/faker';
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { times } from 'ramda';
 import { randomUUID } from 'crypto';
 
@@ -15,10 +15,14 @@ const generate = () => ({
   verb: hacker.verb(),
 });
 
-const rows = 1000000;
+const rows = 100000;
 
 const fakes = times(generate, rows);
 
-const filename = `./${rows}-fakes-${randomUUID()}.json`;
+const folder = `./dist/rows-${rows}`;
+
+const filename = `${folder}/fakes-${randomUUID()}.json`;
+
+if (!existsSync(folder)) mkdirSync(folder, { recursive: true });
 
 writeFileSync(filename, JSON.stringify(fakes, null, 2));
