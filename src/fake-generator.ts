@@ -1,9 +1,10 @@
 import { fakerJA } from '@faker-js/faker';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { times } from 'ramda';
-import { randomUUID } from 'crypto';
+import { config } from './config';
 
 const { person, hacker } = fakerJA;
+const { rows, folder, filename } = config;
 
 const generate = () => ({
   lastName: person.lastName(),
@@ -15,14 +16,10 @@ const generate = () => ({
   verb: hacker.verb(),
 });
 
-const rows = 100000;
-
 const fakes = times(generate, rows);
-
-const folder = `./dist/rows-${rows}`;
-
-const filename = `${folder}/fakes-${randomUUID()}.json`;
 
 if (!existsSync(folder)) mkdirSync(folder, { recursive: true });
 
 writeFileSync(filename, JSON.stringify(fakes, null, 2));
+
+console.log('🚀 ~ filename:', filename);
