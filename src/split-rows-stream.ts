@@ -23,29 +23,22 @@ const jsonStream = streamArray();
 
 files.forEach((filename) => {
   const filePath = join(__dirname, '../', targetFolder, filename.toString());
-  let count = 0;
   const folder = `./dist/split-result/${targetRows}-to-${splitTo}`;
   const createFilename = () => `${folder}/fakes-${randomUUID()}.json`;
-  jsonStream.on('data', ({ key: index, value }) => {
-    console.log(`Index ${index}:`, value);
-    let writableStream = createWriteStream(createFilename());
-    // index が 0 だったら [ を書き込む
-    if (index === 0) {
-      writableStream.write(`[\n`);
-    }
-    // index が splitTo と イコールであれば value を書き込む
-    if (index === splitTo) {
-      writableStream.write(`${JSON.stringify(value, null, 2)}\n`);
+  const newLine = '\n';
+  let count = 0;
+  let writableStream = createWriteStream(createFilename());
+  jsonStream.on('data', ({ key, value }) => {
+    if (count === 0) {
+      writableStream.write(`[\n${JSON.stringify(value, null, 2)},${newLine}`);
       count++;
-    }
-    // index が splitTo と イコールでなければ value と , を書き込む
-    if (index !== splitTo) {
-      writableStream.write(`${JSON.stringify(value, null, 2)},\n`);
-      count++;
-    }
-    // index が splitTo -1 と イコールであれば ] を書き込む
-    if (index === splitTo - 1) {
-      writableStream.write(`${JSON.stringify(value, null, 2)}\n]`);
+    } else if (count === splitTo) {
+      writableStream.write(`${JSON.stringify(value, null, 2)}${newLine}]`);
+      writableStream.end();
+      count = 0;
+      writableStream = createWriteStream(createFilename());
+    } else {
+      writableStream.write(`${JSON.stringify(value, null, 2)},${newLine}`);
       count++;
     }
   });
