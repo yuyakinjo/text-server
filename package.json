@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "generate": "ts-node ./src/fake-generator.ts",
-    "generate:stream": "ts-node ./src/fake-generator-stream.ts",
+    "generate:stream": "bun ./src/fake-generator-stream.ts",
     "format": "prettier --write \"dist/**/*.json\""
   },
   "dependencies": {
