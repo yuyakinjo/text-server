@@ -4,24 +4,15 @@ import { parser } from 'stream-json/Parser';
 import { streamArray } from 'stream-json/streamers/StreamArray';
 import { data, type Schema, type Data } from './schema';
 
-class GenerateOptions {
-  static filename = 'data.json';
-  static sizeLength = 100;
-  static checkOnly = false;
-
-  readonly filename = GenerateOptions.filename;
-  readonly sizeLength = GenerateOptions.sizeLength;
-  readonly checkOnly = GenerateOptions.checkOnly;
-
-  constructor(override?: Partial<GenerateOptions>) {
-    Object.assign(this, override);
-  }
-}
-
 class FakeGenerator {
-  #counter = {
+  readonly counter = {
     input: 0,
     output: 0,
+  };
+
+  private generateOptions = {
+    filename: 'data.json',
+    sizeLength: 100,
   };
 
   get #schema() {
@@ -36,10 +27,11 @@ class FakeGenerator {
     }
   }
 
-  generate(options?: Partial<typeof GenerateOptions>) {
+  generate(options?: FakeGenerator['generateOptions']) {
     console.time('generate');
 
-    const { filename, sizeLength, checkOnly } = new GenerateOptions(options);
+    this.generateOptions = { ...this.generateOptions, ...options };
+    const { filename, sizeLength } = this.generateOptions;
 
     const firstLine = '[';
     const newLine = '\n';
@@ -63,9 +55,9 @@ class FakeGenerator {
         if (!isFirstChunk) writableStream.write(`${comma}${newLine}`);
 
         writableStream.write(JSON.stringify(data));
-        this.#counter.input++;
+        this.counter.input++;
         console.clear();
-        console.log('Input Generating...', this.#counter.input, `/${sizeLength}`);
+        console.log('Input Generating...', this.counter.input, `/${sizeLength}`);
         isFirstChunk = false;
       })
       .on('end', () => {
@@ -80,26 +72,31 @@ class FakeGenerator {
     return this;
   }
 
-  checkLength(options?: Partial<typeof GenerateOptions>) {
+  checkLength(options?: Partial<FakeGenerator['generateOptions']>) {
     console.time('checkLength');
-    const { filename, sizeLength, checkOnly } = new GenerateOptions(options);
-    createReadStream(filename)
-      .pipe(parser({}))
+    this.generateOptions = { ...this.generateOptions, ...options };
+    const { filename } = this.generateOptions;
+    const readStream = createReadStream(filename);
+    readStream
+      .pipe(parser())
       .pipe(streamArray())
       .on('data', () => {
-        this.#counter.output++;
+        this.counter.output++;
         console.clear();
-        if (!checkOnly) console.log('Input Result', this.#counter.input, `/${sizeLength}`);
-        console.log('Output Counting...', this.#counter.output, `/${sizeLength}`);
+        console.group(`${filename}`, 'Json rows counting...', this.counter.output);
+      })
+      .on('error', (error) => {
+        console.timeEnd('checkLength');
+        readStream.destroy();
+        throw error;
       })
       .on('finish', () => {
         console.clear();
-        if (!checkOnly) console.log('Input Result', this.#counter.input, `/${sizeLength}`);
-        console.log('Output Result', this.#counter.output, `/${sizeLength}`);
-        if (!checkOnly) console.assert(this.#counter.input === this.#counter.output, 'Input and Output are not equal');
+        console.group(`${filename}`, 'Json rows:', this.counter.output);
         console.timeEnd('checkLength');
+        readStream.destroy();
       });
   }
 }
 
-new FakeGenerator(data).generate({ sizeLength: 100_000_000, filename: '100_000_000-data.json' });
+new FakeGenerator(data).generate({ sizeLength: 1000, filename: '1000-data.json' }).checkLength();
