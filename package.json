@@ -10,9 +10,11 @@
     "generate": "ts-node ./src/fake-generator.ts",
     "generate:stream": "bun ./src/fake-generator-stream.ts",
     "format": "prettier --write \"dist/**/*.json\""
+    "get:jsonbytesize": "bun --watch ./src/kbsize.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.2.0",
+    "commander": "^11.1.0",
     "fuse.js": "^7.0.0",
     "ramda": "^0.29.1",
     "stream-json": "^1.8.0"
