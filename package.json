@@ -10,6 +10,7 @@
     "generate": "ts-node ./src/fake-generator.ts",
     "generate:stream": "bun ./src/fake-generator-stream.ts",
     "split:stream": "bun ./src/split-json-stream.ts",
+    "get:jsonlength": "bun --watch ./src/jsonlength.ts",
     "get:jsonbytesize": "bun --watch ./src/kbsize.ts"
   },
   "dependencies": {
