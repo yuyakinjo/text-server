@@ -99,4 +99,4 @@ class FakeGenerator {
   }
 }
 
-new FakeGenerator(data).generate({ sizeLength: 1000, filename: '1000-data.json' }).checkLength();
+new FakeGenerator(data).generate({ sizeLength: 30000, filename: '30000-data.json' }).checkLength();

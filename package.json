@@ -9,7 +9,7 @@
   "scripts": {
     "generate": "ts-node ./src/fake-generator.ts",
     "generate:stream": "bun ./src/fake-generator-stream.ts",
-    "format": "prettier --write \"dist/**/*.json\""
+    "split:stream": "bun ./src/split-json-stream.ts",
     "get:jsonbytesize": "bun --watch ./src/kbsize.ts"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "commander": "^11.1.0",
     "fuse.js": "^7.0.0",
     "ramda": "^0.29.1",
+    "stream-chain": "^2.2.5",
     "stream-json": "^1.8.0"
   },
   "devDependencies": {
