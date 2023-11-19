@@ -10,8 +10,10 @@
     "generate": "ts-node ./src/fake-generator.ts",
     "generate:stream": "bun ./src/fake-generator-stream.ts",
     "split:stream": "bun ./src/split-json-stream.ts",
-    "get:jsonlength": "bun --watch ./src/jsonlength.ts",
-    "get:jsonbytesize": "bun --watch ./src/kbsize.ts"
+    "json:generate": "bun ./src/generate-json.ts",
+    "json:checklength": "bun ./src/check-length.ts",
+    "json:bytesize": "bun --watch ./src/kbsize.ts",
+    "json:length": "bun ./src/jsonlength.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.2.0",
