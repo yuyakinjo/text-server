@@ -7,10 +7,10 @@
   "keywords": [],
   "license": "ISC",
   "scripts": {
-    "json:split": "bun ./src/split-json-stream.ts",
     "json:generate": "bun ./src/generate-json.ts",
+    "json:split": "bun ./src/split-json-stream.ts",
     "json:checklength": "bun ./src/check-length.ts",
-    "json:bytesize": "bun --watch ./src/kbsize.ts",
+    "json:bytesize": "bun ./src/kbsize.ts",
     "json:length": "bun ./src/jsonlength.ts"
   },
   "dependencies": {

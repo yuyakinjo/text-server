@@ -8,8 +8,8 @@ import { join } from 'path';
 const { filename, batchsize, output } = cliOptions;
 const batchSize = Number(batchsize);
 
-if (!filename) throw new Error('input filename is required');
-if (!batchSize) throw new Error('batchSize is required');
+if (!filename) throw new Error('input filename is required. ex) -f 1000000-data.json');
+if (!batchSize) throw new Error('batchSize is required. ex) -bs 1000');
 
 const outputFolder = join(__dirname, '..', output, `split-into-${batchSize}`);
 const outputfileName = (index: number) => `${outputFolder}/batch-${index}.json`;
