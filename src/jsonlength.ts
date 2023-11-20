@@ -14,7 +14,7 @@ if (!fileSize) {
 let assignWokerNum = Number(workerNum); // 並列に実行するWorkerの数を指定します。この数値はCPUのコア数に応じて調整してください。
 let chunkSize = Math.ceil(fileSize / assignWokerNum);
 
-let rows = 1;
+let rows = 0;
 let finishedWorkerCounter = 0;
 
 for (let i = 0; i < assignWokerNum; i++) {

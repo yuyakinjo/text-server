@@ -10,5 +10,12 @@ const fd = openSync(filePath, 'r');
 const buffer = Buffer.allocUnsafe(end - start);
 readSync(fd, buffer, 0, end - start, start);
 const textLikeJson = buffer.toString();
-const count = (textLikeJson.match(/},/gm) || []).length;
+
+const connectionPartOfJson = new RegExp(/},/gm);
+const firstJson = new RegExp(/\[{/);
+
+const startStrings = (textLikeJson.match(firstJson) || []).length;
+const connections = (textLikeJson.match(connectionPartOfJson) || []).length;
+
+const count = connections + startStrings;
 parentPort?.postMessage({ count } as Message);
