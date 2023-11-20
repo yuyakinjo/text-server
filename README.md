@@ -47,6 +47,17 @@ Time: 68m34998s
 
 ```bash
 bun run json:split -f 100000000-data.json -bs 100000
+
+{
+  filename: "100000000-data.json",
+  batchSize: 100000,
+  savedFileLength: 1000,
+  rows: 100000000
+}
+
+real 98m8.832s
+user 99m13.643s
+sys 3m13.092s
 ```
 
 ### check length 100 million record json data
