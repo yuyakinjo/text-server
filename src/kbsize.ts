@@ -8,9 +8,9 @@ export const size = (filePath: string) => {
   const GB = MB / 1024;
 
   const unit = {
-    KB: Math.floor(KB),
-    MB: Math.floor(MB),
-    GB: Math.floor(GB),
+    KB,
+    MB,
+    GB,
     realStat: size,
   };
 
