@@ -2,11 +2,9 @@ import { Worker } from 'worker_threads';
 import { Message } from './worker';
 import { statSync } from 'fs';
 import { cliOptions } from './cli-options';
-import { size } from './kbsize';
 const { filename, workerNum } = cliOptions;
 console.time('jsonlength');
 const fileSize = statSync(filename).size;
-const byte = size(filename);
 
 if (!fileSize) {
   throw new Error('File is not fount or empty.');
