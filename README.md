@@ -64,6 +64,13 @@ sys 3m13.092s
 
 ```bash
 time bun run json:checklength -f 100000000-data.json
+
+100000000-data.json Json rows: 100000000
+[5726.22s] checkLength
+
+real 97m13.070s
+user 94m12.924s
+sys 8m7.119s
 ```
 
 ### check bytesize 100 million record json data
@@ -94,4 +101,18 @@ Killed: 9
 real 9m24.568s
 user 7m34.883s
 sys 1m15.250s
+```
+
+### js to csv 100 million record json data
+
+```bash
+time bun run json:tocsv -f 100000000-data.json
+
+100000000-data.json Json rows: 100000000
+json to csv finish
+[6065.81s] tocsv
+
+real	148m37.012s
+user	95m2.796s
+sys	11m12.759s
 ```
