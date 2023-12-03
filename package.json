@@ -11,7 +11,8 @@
     "json:split": "bun ./src/split-json-stream.ts",
     "json:checklength": "bun ./src/check-length.ts",
     "json:bytesize": "bun ./src/kbsize.ts",
-    "json:length": "bun ./src/jsonlength.ts"
+    "json:length": "bun ./src/jsonlength.ts",
+    "json:tocsv": "bun ./src/json-to-csv.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.2.0",
