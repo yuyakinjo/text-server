@@ -1,7 +1,6 @@
 import { statSync } from 'fs';
-import { cliOptions } from './cli-options';
 
-export const size = (filePath: string) => {
+export const kbsize = (filePath: string) => {
   const { size } = statSync(filePath);
   const KB = size / 1024;
   const MB = KB / 1024;
@@ -18,7 +17,3 @@ export const size = (filePath: string) => {
 
   return unit;
 };
-
-if (cliOptions) {
-  size(cliOptions.filename);
-}

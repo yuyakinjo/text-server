@@ -7,12 +7,11 @@
   "keywords": [],
   "license": "ISC",
   "scripts": {
-    "json:generate": "bun ./src/generate-json.ts",
-    "json:split": "bun ./src/split-json-stream.ts",
-    "json:checklength": "bun ./src/check-length.ts",
-    "json:bytesize": "bun ./src/kbsize.ts",
-    "json:length": "bun ./src/jsonlength.ts",
-    "json:tocsv": "bun ./src/json-to-csv.ts"
+    "json:generate": "bun ./src/scripts/generate.ts",
+    "json:checklength": "bun ./src/scripts/check-length.ts",
+    "json:bytesize": "bun ./src/scripts/byte-size.ts",
+    "json:tocsv": "bun ./src/scripts/to-csv.ts",
+    "json:split": "bun ./src/scripts/split.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.2.0",
