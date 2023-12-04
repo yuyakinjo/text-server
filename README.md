@@ -37,7 +37,7 @@ Performance check using 100 million record database and json data
 ### Generate
 
 ```bash
-bun run json:generate -f 100000000-data.json -gl 100000000
+time bun run json:generate -gl 100000000
 ```
 
 100_000_000 record json data will be generated in `./100000000-data.json`
@@ -46,7 +46,7 @@ Time: 68m34998s
 ### split 100 million record json data
 
 ```bash
-bun run json:split -f 100000000-data.json -bs 100000
+time bun run json:split -f 100000000-data.json -bs 100000
 
 {
   filename: "100000000-data.json",
